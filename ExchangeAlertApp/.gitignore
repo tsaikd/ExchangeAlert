@@ -1,0 +1,10 @@
+/[Dd]ebug
+/[Rr]elease
+/tmp
+/Makefile*
+/*.dll
+/*.exe
+/*.ilk
+/*.manifest
+/*.user
+
