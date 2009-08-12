@@ -23,7 +23,7 @@ void QWinMainApp::_init()
 
 	// Tray Icon
 	DEWRP(QSystemTrayIcon, tray, m_tray, new QSystemTrayIcon(this));
-	tray.setIcon(QIcon(":/icon/ExchangeAlert.ico"));
+	tray.setIcon(QIcon(":/icon/ExchangeAlert2.png"));
 	connect(&tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayActivated(QSystemTrayIcon::ActivationReason)));
 	{	// Tray menu
 		QMenu* menu = new QMenu(this);
