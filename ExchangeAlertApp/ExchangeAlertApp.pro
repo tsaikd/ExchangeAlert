@@ -8,11 +8,14 @@ LANGDIR = $${BASEDIR}/lang
 
 QT *= network
 
-#TRANSLATIONS += $${LANGDIR}/KDWall_zh_TW.ts
+TRANSLATIONS += $${LANGDIR}/ExchangeAlert_zh_TW.ts
 RESOURCES += $${BASEDIR}/ExchangeAlert.qrc
 RC_FILE = $${BASEDIR}/ExchangeAlert.rc
 
 PRECOMPILED_HEADER += $${SRCDIR}/stable.h
+
+SOURCES += $${SRCDIR}/QSyncHttp.cpp
+HEADERS += $${SRCDIR}/QSyncHttp.h
 
 SOURCES += $${SRCDIR}/Debug.cpp
 SOURCES += $${SRCDIR}/mainApp.cpp

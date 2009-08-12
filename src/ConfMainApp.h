@@ -11,13 +11,18 @@ public:
 	QConfMainApp(QObject* parent = NULL)
 		:	QObject(parent)
 	{ _init(); }
-	~QConfMainApp();
+	~QConfMainApp() { save(); }
 	QConfMainApp& save();
 
-	QSettings* m_conf;
-	QWidget* m_mainWidget;
-	bool	m_closing;
-	bool	m_initWithoutWindow;					// ini conf
+	QSettings* m_conf;			// app conf
+	QWidget* m_mainWidget;		// app conf
+	bool	m_closing;			// app conf
+	bool	m_initHideWindow;
+
+	int		m_refreshTimer;
+	bool	m_USEnable;
+	double	m_USDollar;
+	double	m_USDollarLast;
 
 protected:
 	QMap<QString, QVariant> m_mapConfDefValue;

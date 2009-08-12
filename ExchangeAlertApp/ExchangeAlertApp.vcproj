@@ -78,6 +78,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\QSyncHttp.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\WinMainApp.cpp"
 				>
 			</File>
@@ -97,6 +101,10 @@
 			</File>
 			<File
 				RelativePath="..\src\mainApp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\QSyncHttp.h"
 				>
 			</File>
 			<File
