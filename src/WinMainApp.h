@@ -46,6 +46,7 @@ protected:
 
 	QCheckBox* m_chkInitHideWindow;
 
+	QCheckBox* m_chkEnableTimeLimit;
 	QSpinBox* m_spinRefreshTimer;
 	QTimer* m_timer;
 	QLabel* m_lblCurUSDollar;

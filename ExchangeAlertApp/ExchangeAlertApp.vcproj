@@ -44,9 +44,9 @@
 			>
 			<Tool
 				Name="VCNMakeTool"
-				BuildCommandLine="qmake &amp;&amp; nmake debug"
-				ReBuildCommandLine="qmake &amp;&amp; nmake debug-clean debug"
-				CleanCommandLine="qmake &amp;&amp; nmake debug-clean"
+				BuildCommandLine="qmake &amp;&amp; nmake release"
+				ReBuildCommandLine="qmake &amp;&amp; nmake release-clean release"
+				CleanCommandLine="qmake &amp;&amp; nmake release-clean"
 				Output="ExchangeAlert.exe"
 				PreprocessorDefinitions="WIN32;NDEBUG"
 				IncludeSearchPath=""

@@ -25,6 +25,7 @@ void QConfMainApp::_init()
 	m_closing = false;
 	LOAD_CONFIG(initHideWindow, "0");
 
+	LOAD_CONFIG(enableTimeLimit, "1");
 	LOAD_CONFIG(refreshTimer, "60");
 	LOAD_CONFIG(USEnable, "0");
 	LOAD_CONFIG(USDollar, "0");
@@ -37,6 +38,7 @@ QConfMainApp& QConfMainApp::save()
 
 	SAVE_CONFIG(initHideWindow);
 
+	SAVE_CONFIG(enableTimeLimit);
 	SAVE_CONFIG(refreshTimer);
 	SAVE_CONFIG(USEnable);
 	SAVE_CONFIG(USDollar);

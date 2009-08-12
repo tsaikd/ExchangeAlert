@@ -6,6 +6,13 @@
 void QWinMainApp::_init()
 {
 	DEWRP(QConfMainApp, conf, m_conf, new QConfMainApp(this));
+	{
+		QAction* act = new QAction(this);
+		act->setShortcut(Qt::Key_Escape);
+		addAction(act);
+		connect(act, SIGNAL(triggered()), this, SLOT(close()));
+	}
+
 	m_http = new QSyncHttp(this);
 
 	{
@@ -32,6 +39,13 @@ void QWinMainApp::_init()
 		DEWRV(QCheckBox*, chk, m_chkInitHideWindow, new QCheckBox(this));
 		chk->setText(tr("Hide window when start"));
 		chk->setChecked(conf.m_initHideWindow);
+		connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
+		lot->addWidget(chk);
+	}
+	{
+		DEWRV(QCheckBox*, chk, m_chkEnableTimeLimit, new QCheckBox(this));
+		chk->setText(tr("Only update from internet in trading time"));
+		chk->setChecked(conf.m_enableTimeLimit);
 		connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
 		lot->addWidget(chk);
 	}
@@ -209,6 +223,7 @@ void QWinMainApp::applyConf()
 
 	conf.m_initHideWindow = (m_chkInitHideWindow->checkState() == Qt::Checked) ? true : false;
 
+	conf.m_enableTimeLimit = (m_chkEnableTimeLimit->checkState() == Qt::Checked) ? true : false;
 	conf.m_refreshTimer = m_spinRefreshTimer->value();
 	conf.m_USEnable = (m_chkUSDollar->checkState() == Qt::Checked) ? true : false;
 	conf.m_USDollar = m_spinUSDollar->value();
@@ -219,16 +234,18 @@ void QWinMainApp::applyConf()
 
 void QWinMainApp::refreshWebPage()
 {
-	if (QDate::currentDate().dayOfWeek() >= Qt::Saturday)
-		return;
-	if (QTime::currentTime().hour() < 8)
-		return;
-	if (QTime::currentTime().hour() > 16)
-		return;
-
 	DECCP(QConfMainApp, conf);
 	DECCP(QSyncHttp, http);
 	DECOV(bool, conf, USEnable);
+
+	if (conf.m_enableTimeLimit) {
+		if (QDate::currentDate().dayOfWeek() >= Qt::Saturday)
+			return;
+		if (QTime::currentTime().hour() < 8)
+			return;
+		if (QTime::currentTime().hour() > 16)
+			return;
+	}
 
 	if (USEnable) {
 		QBuffer buf;
