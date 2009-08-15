@@ -10,7 +10,7 @@ QT *= network
 
 TRANSLATIONS += $${LANGDIR}/ExchangeAlert_zh_TW.ts
 RESOURCES += $${BASEDIR}/ExchangeAlert.qrc
-RC_FILE = $${BASEDIR}/ExchangeAlert.rc
+RC_FILE = ExchangeAlertApp.rc
 
 PRECOMPILED_HEADER += $${SRCDIR}/stable.h
 

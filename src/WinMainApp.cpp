@@ -18,7 +18,7 @@ void QWinMainApp::_init()
 	{
 		DECRV(QRegExp, re, m_reUS);
 		re.setMinimal(true);
-		re.setPattern("USD.*(\\d+\\.\\d+)</td>");
+		re.setPattern("USD.*(\\d+\\.\\d+)</td>.*>(\\d+\\.\\d+)</td>.*>(\\d+\\.\\d+)</td>.*>(\\d+\\.\\d+)</td>");
 	}
 
 	// Tray Icon
@@ -258,7 +258,7 @@ void QWinMainApp::refreshWebPage()
 		int pos = 0;
 		DECRV(QRegExp, re, m_reUS);
 		while ((pos = re.indexIn(page, pos)) != -1) {
-			val = re.cap(1).toDouble();
+			val = (re.cap(3).toDouble() + re.cap(4).toDouble()) / 2;
 			break;
 		}
 
