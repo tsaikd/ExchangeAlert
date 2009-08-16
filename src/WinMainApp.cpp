@@ -156,6 +156,11 @@ void QWinMainApp::resetTimer()
 
 void QWinMainApp::alarmUSDollar(double val)
 {
+	DECCP(QConfMainApp, conf);
+	DECRV(QCheckBox*, chk, m_chkUSDollar);
+	disconnect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
+	chk->setChecked(conf.m_USEnable);
+	connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
 	QMessageBox::information(this, qAppName(), tr("US Dollar reached %1").arg(val, 0, 'g', 6));
 }
 
