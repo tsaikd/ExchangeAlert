@@ -20,7 +20,7 @@ static const QVariant& operator << (double& val, const QVariant& var) {
 
 void QConfMainApp::_init()
 {
-	DEWRP(QSettings, conf, m_conf, new QSettings(PROJNAME".ini", QSettings::IniFormat, this));
+	DEWRP(QSettings, conf, m_conf, new QSettings(QString("%1.ini").arg(qAppName()), QSettings::IniFormat, this));
 	m_mainWidget = NULL;
 	m_closing = false;
 	LOAD_CONFIG(initHideWindow, "0");

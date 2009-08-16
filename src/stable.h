@@ -6,6 +6,4 @@
 
 #include "Debug.h"
 
-#define PROJNAME "ExchangeAlert"
-
 #endif//_EXCHANGEALERT_STABLE_H

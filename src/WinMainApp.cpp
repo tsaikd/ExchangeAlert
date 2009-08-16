@@ -154,7 +154,7 @@ void QWinMainApp::resetTimer()
 
 void QWinMainApp::alarmUSDollar(double val)
 {
-	QMessageBox::information(this, PROJNAME"App", tr("US Dollar reached %1").arg(val, 0, 'g', 6));
+	QMessageBox::information(this, qAppName(), tr("US Dollar reached %1").arg(val, 0, 'g', 6));
 }
 
 void QWinMainApp::handleAppMessage(const QString& sMsg)

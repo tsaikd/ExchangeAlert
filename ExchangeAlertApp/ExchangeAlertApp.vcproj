@@ -74,7 +74,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\mainApp.cpp"
+				RelativePath=".\main.cpp"
 				>
 			</File>
 			<File
@@ -92,15 +92,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\config.h"
+				>
+			</File>
+			<File
 				RelativePath="..\src\ConfMainApp.h"
 				>
 			</File>
 			<File
 				RelativePath="..\src\Debug.h"
-				>
-			</File>
-			<File
-				RelativePath="..\src\mainApp.h"
 				>
 			</File>
 			<File

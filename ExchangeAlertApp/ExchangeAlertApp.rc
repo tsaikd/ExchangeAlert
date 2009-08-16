@@ -1,13 +1,16 @@
-IDI_ICON1		ICON	DISCARDABLE	"../icon/ExchangeAlert2.ico"
-
 # if defined(UNDER_CE)
 #  include <winbase.h>
 # else
 #  include <winver.h>
 # endif
 
+# include "config.h"
+
+IDI_ICON1		ICON	DISCARDABLE			ICONPATH
+
 VS_VERSION_INFO VERSIONINFO
-	FILEVERSION 1,0,0,1
+	FILEVERSION PROJVERC
+	PRODUCTVERSION PROJVERC
 	FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
 	FILEFLAGS VS_FF_DEBUG
@@ -24,7 +27,10 @@ VS_VERSION_INFO VERSIONINFO
 			BEGIN
 				VALUE "CompanyName", "KD\0"
 				VALUE "FileDescription", "Exchange Alert Qt Application\0"
-				VALUE "FileVersion", "1.0.0.1\0"
+				VALUE "FileVersion", PROJVER
+				VALUE "LegalCopyright", "Copyright (C) 2009 by tsaikd\0"
+				VALUE "ProductVersion", PROJVER
+				VALUE "ProductName", PROJNAME
 			END
 		END
 	END
