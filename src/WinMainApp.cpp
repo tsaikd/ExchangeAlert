@@ -5,6 +5,7 @@
 
 void QWinMainApp::_init()
 {
+	setWindowTitle(QString("%1 %2").arg(qAppName()).arg(qApp->applicationVersion()));
 	DEWRP(QConfMainApp, conf, m_conf, new QConfMainApp(this));
 	{
 		QAction* act = new QAction(this);
@@ -23,6 +24,7 @@ void QWinMainApp::_init()
 
 	// Tray Icon
 	DEWRP(QSystemTrayIcon, tray, m_tray, new QSystemTrayIcon(this));
+	tray.setToolTip(windowTitle());
 	tray.setIcon(QIcon(":/icon/ExchangeAlert2.png"));
 	connect(&tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(trayActivated(QSystemTrayIcon::ActivationReason)));
 	{	// Tray menu
