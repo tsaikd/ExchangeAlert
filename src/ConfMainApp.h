@@ -21,9 +21,11 @@ public:
 
 	bool	m_enableTimeLimit;
 	int		m_refreshTimer;
+	double	m_USDollarLast;
 	bool	m_USEnable;
 	double	m_USDollar;
-	double	m_USDollarLast;
+	bool	m_USEnable2;
+	double	m_USDollar2;
 
 protected:
 	QMap<QString, QVariant> m_mapConfDefValue;

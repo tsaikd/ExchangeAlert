@@ -71,23 +71,46 @@ void QWinMainApp::_init()
 	{
 		QHBoxLayout* lot2 = new QHBoxLayout();
 		{
-			DEWRV(QCheckBox*, chk, m_chkUSDollar, new QCheckBox(this));
-			chk->setText(tr("US dollar:"));
-			chk->setChecked(conf.m_USEnable);
-			connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
-			lot2->addWidget(chk);
+			QLabel* lbl = new QLabel(this);
+			lbl->setText(tr("US dollar:"));
+			lot2->addWidget(lbl);
 		}
 		{
 			DEWRV(QLabel*, lbl, m_lblCurUSDollar, new QLabel(this));
 			lbl->setText(QString::number(conf.m_USDollarLast));
 			lot2->addWidget(lbl);
 		}
+		lot->addLayout(lot2);
+	}
+	{
+		QHBoxLayout* lot2 = new QHBoxLayout();
 		{
+			DEWRV(QCheckBox*, chk, m_chkUSDollar, new QCheckBox(this));
+			chk->setChecked(conf.m_USEnable);
+			chk->setMaximumWidth(15);
+			connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
+			lot2->addWidget(chk);
+
 			DEWRV(QDoubleSpinBox*, spin, m_spinUSDollar, new QDoubleSpinBox(this));
 			spin->setDecimals(3);
 			spin->setRange(0, 9999);
 			spin->setSingleStep(0.005);
 			spin->setValue(conf.m_USDollar);
+			connect(spin, SIGNAL(valueChanged(double)), this, SLOT(setConfChanged()));
+			lot2->addWidget(spin);
+		}
+		{
+			DEWRV(QCheckBox*, chk, m_chkUSDollar2, new QCheckBox(this));
+			chk->setChecked(conf.m_USEnable2);
+			chk->setMaximumWidth(15);
+			connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
+			lot2->addWidget(chk);
+
+			DEWRV(QDoubleSpinBox*, spin, m_spinUSDollar2, new QDoubleSpinBox(this));
+			spin->setDecimals(3);
+			spin->setRange(0, 9999);
+			spin->setSingleStep(0.005);
+			spin->setValue(conf.m_USDollar2);
 			connect(spin, SIGNAL(valueChanged(double)), this, SLOT(setConfChanged()));
 			lot2->addWidget(spin);
 		}
@@ -157,10 +180,20 @@ void QWinMainApp::resetTimer()
 void QWinMainApp::alarmUSDollar(double val)
 {
 	DECCP(QConfMainApp, conf);
-	DECRV(QCheckBox*, chk, m_chkUSDollar);
-	disconnect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
-	chk->setChecked(conf.m_USEnable);
-	connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
+
+	{
+		DECRV(QCheckBox*, chk, m_chkUSDollar);
+		disconnect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
+		chk->setChecked(conf.m_USEnable);
+		connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
+	}
+	{
+		DECRV(QCheckBox*, chk, m_chkUSDollar2);
+		disconnect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
+		chk->setChecked(conf.m_USEnable2);
+		connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
+	}
+
 	QMessageBox::information(this, qAppName(), tr("US Dollar reached %1").arg(val, 0, 'g', 6));
 }
 
@@ -234,6 +267,8 @@ void QWinMainApp::applyConf()
 	conf.m_refreshTimer = m_spinRefreshTimer->value();
 	conf.m_USEnable = (m_chkUSDollar->checkState() == Qt::Checked) ? true : false;
 	conf.m_USDollar = m_spinUSDollar->value();
+	conf.m_USEnable2 = (m_chkUSDollar2->checkState() == Qt::Checked) ? true : false;
+	conf.m_USDollar2 = m_spinUSDollar2->value();
 
 	conf.save();
 	resetTimer();
@@ -244,6 +279,8 @@ void QWinMainApp::refreshWebPage()
 	DECCP(QConfMainApp, conf);
 	DECCP(QSyncHttp, http);
 	DECOV(bool, conf, USEnable);
+	DECOV(bool, conf, USEnable2);
+	double val = 0;
 
 	if (conf.m_enableTimeLimit) {
 		if (QDate::currentDate().dayOfWeek() >= Qt::Saturday)
@@ -254,24 +291,25 @@ void QWinMainApp::refreshWebPage()
 			return;
 	}
 
-	if (USEnable) {
+	if (USEnable || USEnable2) {
 		QBuffer buf;
 		http.syncSetHost("rate.bot.com.tw");
 		http.syncGet("/Pages/Static/UIP003.zh-TW.htm", &buf);
 		QTextCodec* codec = QTextCodec::codecForName("UTF-8");
 		QString page = codec->toUnicode(buf.data());
 
-		double val = 0;
 		int pos = 0;
 		DECRV(QRegExp, re, m_reUS);
 		while ((pos = re.indexIn(page, pos)) != -1) {
 			val = (re.cap(3).toDouble() + re.cap(4).toDouble()) / 2;
 			break;
 		}
+	}
 
-		if (val != 0) {
+	if (val != 0) {
+		DECOV(double, conf, USDollarLast);
+		if (USEnable) {
 			DECOV(double, conf, USDollar);
-			DECOV(double, conf, USDollarLast);
 			if (USDollarLast == 0) {
 				if (val == USDollar) {
 					USEnable = false;
@@ -286,10 +324,28 @@ void QWinMainApp::refreshWebPage()
 					alarmUSDollar(val);
 				}
 			}
-			USDollarLast = val;
-			conf.save();
-
-			m_lblCurUSDollar->setText(QString::number(val, 'g', 6));
 		}
+		if (USEnable2) {
+			DECOV(double, conf, USDollar2);
+			if (USDollarLast == 0) {
+				if (val == USDollar2) {
+					USEnable2 = false;
+					alarmUSDollar(val);
+				}
+			} else {
+				if ( (USDollarLast >= USDollar2) && (val <= USDollar2) ) {
+					USEnable2 = false;
+					alarmUSDollar(val);
+				} else if ( (USDollarLast <= USDollar2) && (val >= USDollar2) ) {
+					USEnable2 = false;
+					alarmUSDollar(val);
+				}
+			}
+		}
+
+		USDollarLast = val;
+		conf.save();
+
+		m_lblCurUSDollar->setText(QString::number(val, 'g', 6));
 	}
 }

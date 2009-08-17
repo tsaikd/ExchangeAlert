@@ -27,9 +27,11 @@ void QConfMainApp::_init()
 
 	LOAD_CONFIG(enableTimeLimit, "1");
 	LOAD_CONFIG(refreshTimer, "60");
+	LOAD_CONFIG(USDollarLast, "0");
 	LOAD_CONFIG(USEnable, "0");
 	LOAD_CONFIG(USDollar, "0");
-	LOAD_CONFIG(USDollarLast, "0");
+	LOAD_CONFIG(USEnable2, "0");
+	LOAD_CONFIG(USDollar2, "0");
 }
 
 QConfMainApp& QConfMainApp::save()
@@ -40,9 +42,11 @@ QConfMainApp& QConfMainApp::save()
 
 	SAVE_CONFIG(enableTimeLimit);
 	SAVE_CONFIG(refreshTimer);
+	SAVE_CONFIG(USDollarLast);
 	SAVE_CONFIG(USEnable);
 	SAVE_CONFIG(USDollar);
-	SAVE_CONFIG(USDollarLast);
+	SAVE_CONFIG(USEnable2);
+	SAVE_CONFIG(USDollar2);
 
 	return *this;
 }

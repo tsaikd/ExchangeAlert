@@ -52,6 +52,8 @@ protected:
 	QLabel* m_lblCurUSDollar;
 	QCheckBox* m_chkUSDollar;
 	QDoubleSpinBox* m_spinUSDollar;
+	QCheckBox* m_chkUSDollar2;
+	QDoubleSpinBox* m_spinUSDollar2;
 	QPushButton* m_btnApply;
 };
 
