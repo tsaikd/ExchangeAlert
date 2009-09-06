@@ -171,7 +171,7 @@ void QWinMainApp::resetTimer()
 	DECCV(QTimer*, timer);
 	timer->stop();
 
-	if (conf.m_USEnable) {
+	if (conf.m_USEnable || conf.m_USEnable2) {
 		timer->start(conf.m_refreshTimer*1000);
 		QTimer::singleShot(2000, this, SLOT(refreshWebPage()));
 	}
