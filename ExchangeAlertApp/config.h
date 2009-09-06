@@ -2,8 +2,8 @@
 #define _EXCHANGEALERT_CONFIG_H
 
 #define PROJNAME	"ExchangeAlert"
-#define PROJVER		"1.0.0.5"
-#define PROJVERC	1,0,0,5
+#define PROJVER		"1.0.0.6"
+#define PROJVERC	1,0,0,6
 
 #define ICONPATH	"../icon/ExchangeAlert2.ico"
 
