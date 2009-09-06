@@ -143,6 +143,25 @@ void QWinMainApp::_init()
 	}
 }
 
+bool QWinMainApp::numBetweenNums(double num, double base1, double base2, bool bIncEq/* = false*/)
+{
+	int iNum = (int)((num * 10000 + 5) / 10);
+	int iBase1 = (int)((base1 * 10000 + 5) / 10);
+	int iBase2 = (int)((base2 * 10000 + 5) / 10);
+	if (bIncEq) {
+		if (iBase1 <= iNum && iNum <= iBase2)
+			return true;
+		if (iBase1 >= iNum && iNum >= iBase2)
+			return true;
+	} else {
+		if (iBase1 < iNum && iNum < iBase2)
+			return true;
+		if (iBase1 > iNum && iNum > iBase2)
+			return true;
+	}
+	return false;
+}
+
 void QWinMainApp::closeEvent(QCloseEvent* e)
 {
 	QWidget::closeEvent(e);
@@ -316,10 +335,7 @@ void QWinMainApp::refreshWebPage()
 					alarmUSDollar(val);
 				}
 			} else {
-				if ( (USDollarLast >= USDollar) && (val <= USDollar) ) {
-					USEnable = false;
-					alarmUSDollar(val);
-				} else if ( (USDollarLast <= USDollar) && (val >= USDollar) ) {
+				if (!numBetweenNums(val, USDollarLast, USDollar)) {
 					USEnable = false;
 					alarmUSDollar(val);
 				}
@@ -333,10 +349,7 @@ void QWinMainApp::refreshWebPage()
 					alarmUSDollar(val);
 				}
 			} else {
-				if ( (USDollarLast >= USDollar2) && (val <= USDollar2) ) {
-					USEnable2 = false;
-					alarmUSDollar(val);
-				} else if ( (USDollarLast <= USDollar2) && (val >= USDollar2) ) {
+				if (!numBetweenNums(val, USDollarLast, USDollar2)) {
 					USEnable2 = false;
 					alarmUSDollar(val);
 				}

@@ -18,6 +18,8 @@ private:
 public:
 	QWinMainApp() { _init(); }
 
+	static bool numBetweenNums(double num, double base1, double base2, bool bIncEq = false);
+
 protected:
 	virtual void closeEvent(QCloseEvent* e);
 	virtual void changeEvent(QEvent* e);
