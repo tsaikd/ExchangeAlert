@@ -143,7 +143,7 @@ void QWinMainApp::_init()
 	}
 }
 
-bool QWinMainApp::numBetweenNums(double num, double base1, double base2, bool bIncEq/* = false*/)
+bool QWinMainApp::numBetweenNums(double num, double base1, double base2, bool bIncEq/* = true*/)
 {
 	int iNum = (int)((num * 10000 + 5) / 10);
 	int iBase1 = (int)((base1 * 10000 + 5) / 10);
@@ -335,7 +335,7 @@ void QWinMainApp::refreshWebPage()
 					alarmUSDollar(val);
 				}
 			} else {
-				if (!numBetweenNums(val, USDollarLast, USDollar)) {
+				if (numBetweenNums(USDollar, val, USDollarLast)) {
 					USEnable = false;
 					alarmUSDollar(val);
 				}
@@ -349,7 +349,7 @@ void QWinMainApp::refreshWebPage()
 					alarmUSDollar(val);
 				}
 			} else {
-				if (!numBetweenNums(val, USDollarLast, USDollar2)) {
+				if (numBetweenNums(USDollar2, val, USDollarLast)) {
 					USEnable2 = false;
 					alarmUSDollar(val);
 				}
