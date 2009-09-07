@@ -55,7 +55,7 @@ void QWinMainApp::_init()
 		QHBoxLayout* lot2 = new QHBoxLayout();
 		{
 			QLabel* lbl = new QLabel(this);
-			lbl->setText(tr("Refresh time:"));
+			lbl->setText(tr("Refresh time(sec):"));
 			lot2->addWidget(lbl);
 		}
 		{
