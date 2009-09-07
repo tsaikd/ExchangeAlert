@@ -57,6 +57,8 @@ protected:
 	QCheckBox* m_chkUSDollar2;
 	QDoubleSpinBox* m_spinUSDollar2;
 	QPushButton* m_btnApply;
+
+	QStatusBar* m_bar;
 };
 
 #endif//_EXCHANGEALERT_WINMAINAPP_H

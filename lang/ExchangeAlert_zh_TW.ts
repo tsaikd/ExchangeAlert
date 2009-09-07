@@ -5,7 +5,7 @@
     <name>QWinMainApp</name>
     <message>
         <location filename="../src/WinMainApp.cpp" line="32"/>
-        <location filename="../src/WinMainApp.cpp" line="130"/>
+        <location filename="../src/WinMainApp.cpp" line="135"/>
         <source>&amp;Quit</source>
         <translation>離開(&amp;Q)</translation>
     </message>
@@ -38,14 +38,24 @@
         <translation>美金:</translation>
     </message>
     <message>
-        <location filename="../src/WinMainApp.cpp" line="123"/>
+        <location filename="../src/WinMainApp.cpp" line="128"/>
         <source>&amp;Apply</source>
         <translation>套用(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/WinMainApp.cpp" line="216"/>
+        <location filename="../src/WinMainApp.cpp" line="221"/>
         <source>US Dollar reached %1</source>
         <translation>美金已達目標 %1</translation>
+    </message>
+    <message>
+        <location filename="../src/WinMainApp.cpp" line="319"/>
+        <source>Updating US dollar ...</source>
+        <translation>美金更新中...</translation>
+    </message>
+    <message>
+        <location filename="../src/WinMainApp.cpp" line="371"/>
+        <source>Updated US dollar</source>
+        <translation>美金更新完畢</translation>
     </message>
 </context>
 </TS>

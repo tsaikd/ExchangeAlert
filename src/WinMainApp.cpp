@@ -117,6 +117,11 @@ void QWinMainApp::_init()
 		lot->addLayout(lot2);
 	}
 	{
+		DEWRV(QStatusBar*, bar, m_bar, new QStatusBar(this));
+		bar->setSizeGripEnabled(false);
+		lot->addWidget(bar);
+	}
+	{
 		QHBoxLayout* lot2 = new QHBoxLayout();
 		{
 			DEWRV(QPushButton*, btn, m_btnApply, new QPushButton(this));
@@ -295,6 +300,7 @@ void QWinMainApp::applyConf()
 
 void QWinMainApp::refreshWebPage()
 {
+	DECCP(QStatusBar, bar);
 	DECCP(QConfMainApp, conf);
 	DECCP(QSyncHttp, http);
 	DECOV(bool, conf, USEnable);
@@ -310,6 +316,7 @@ void QWinMainApp::refreshWebPage()
 			return;
 	}
 
+	bar.showMessage(tr("Updating US dollar ..."));
 	if (USEnable || USEnable2) {
 		QBuffer buf;
 		http.syncSetHost("rate.bot.com.tw");
@@ -361,4 +368,5 @@ void QWinMainApp::refreshWebPage()
 
 		m_lblCurUSDollar->setText(QString::number(val, 'g', 6));
 	}
+	bar.showMessage(tr("Updated US dollar"), 2000);
 }
