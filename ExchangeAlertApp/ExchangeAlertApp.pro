@@ -20,9 +20,14 @@ HEADERS += $${SRCDIR}/QSyncHttp.h
 
 SOURCES += main.cpp
 SOURCES += $${SRCDIR}/Debug.cpp
+HEADERS += $${SRCDIR}/WinExt.h
+SOURCES += $${SRCDIR}/WinExt.cpp
+
 HEADERS += $${SRCDIR}/WinMainApp.h
 SOURCES += $${SRCDIR}/WinMainApp.cpp
 SOURCES += $${SRCDIR}/ConfMainApp.cpp
+HEADERS += $${SRCDIR}/WinConfMainApp.h
+SOURCES += $${SRCDIR}/WinConfMainApp.cpp
 
 include($${INCDIR}/qtsingleapplication/qtsingleapplication.pri)
 include($${BASEDIR}/general.pri)

@@ -82,6 +82,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\src\WinConfMainApp.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\WinExt.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\src\WinMainApp.cpp"
 				>
 			</File>
@@ -109,6 +117,14 @@
 			</File>
 			<File
 				RelativePath="..\src\stable.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\WinConfMainApp.h"
+				>
+			</File>
+			<File
+				RelativePath="..\src\WinExt.h"
 				>
 			</File>
 			<File

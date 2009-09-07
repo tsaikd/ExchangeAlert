@@ -9,6 +9,7 @@ enum APPMSG {
 
 class QSyncHttp;
 class QConfMainApp;
+class QWinConfMainApp;
 
 class QWinMainApp : public QWidget
 {
@@ -21,7 +22,6 @@ public:
 	static bool numBetweenNums(double num, double base1, double base2, bool bIncEq = true);
 
 protected:
-	virtual void closeEvent(QCloseEvent* e);
 	virtual void changeEvent(QEvent* e);
 
 	void resetTimer();
@@ -35,21 +35,19 @@ protected slots:
 	// for trayicon
 	void trayActivated(QSystemTrayIcon::ActivationReason reason);
 
+	void showWinConf();
 	void setConfChanged();
 	void applyConf();
 	void refreshWebPage();
 
 protected:
 	QConfMainApp* m_conf;
+	QWinConfMainApp* m_winConf;
 	QSyncHttp* m_http;
 	QRegExp m_reUS;
 	QSystemTrayIcon* m_tray;
 	QRect m_rect; // used for restore minimized window geometry
 
-	QCheckBox* m_chkInitHideWindow;
-
-	QCheckBox* m_chkEnableTimeLimit;
-	QSpinBox* m_spinRefreshTimer;
 	QTimer* m_timer;
 	QLabel* m_lblCurUSDollar;
 	QCheckBox* m_chkUSDollar;

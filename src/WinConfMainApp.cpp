@@ -4,7 +4,7 @@
 
 QWinConfMainApp::QWinConfMainApp(QConfMainApp* pConf, QWidget* parent/* = NULL*/)
 	:	m_conf(pConf)
-	,	QWinBase(parent)
+	,	QWinExt(parent)
 {
 	DECCP(QConfMainApp, conf);
 

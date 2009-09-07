@@ -1,6 +1,7 @@
 #include "WinMainApp.h"
 
 #include "ConfMainApp.h"
+#include "WinConfMainApp.h"
 #include "QSyncHttp.h"
 
 void QWinMainApp::_init()
@@ -13,6 +14,7 @@ void QWinMainApp::_init()
 		addAction(act);
 		connect(act, SIGNAL(triggered()), this, SLOT(close()));
 	}
+	m_winConf = NULL;
 
 	m_http = new QSyncHttp(this);
 
@@ -37,37 +39,6 @@ void QWinMainApp::_init()
 	connect(timer, SIGNAL(timeout()), this, SLOT(refreshWebPage()));
 
 	QVBoxLayout* lot = new QVBoxLayout();
-	{
-		DEWRV(QCheckBox*, chk, m_chkInitHideWindow, new QCheckBox(this));
-		chk->setText(tr("Hide window when start"));
-		chk->setChecked(conf.m_initHideWindow);
-		connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
-		lot->addWidget(chk);
-	}
-	{
-		DEWRV(QCheckBox*, chk, m_chkEnableTimeLimit, new QCheckBox(this));
-		chk->setText(tr("Only update from internet in trading time"));
-		chk->setChecked(conf.m_enableTimeLimit);
-		connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
-		lot->addWidget(chk);
-	}
-	{
-		QHBoxLayout* lot2 = new QHBoxLayout();
-		{
-			QLabel* lbl = new QLabel(this);
-			lbl->setText(tr("Refresh time(sec):"));
-			lot2->addWidget(lbl);
-		}
-		{
-			DEWRV(QSpinBox*, spin, m_spinRefreshTimer, new QSpinBox(this));
-			spin->setRange(15, 3600);
-			spin->setSingleStep(15);
-			spin->setValue(conf.m_refreshTimer);
-			connect(spin, SIGNAL(valueChanged(int)), this, SLOT(setConfChanged()));
-			lot2->addWidget(spin);
-		}
-		lot->addLayout(lot2);
-	}
 	{
 		QHBoxLayout* lot2 = new QHBoxLayout();
 		{
@@ -132,6 +103,12 @@ void QWinMainApp::_init()
 		}
 		{
 			QPushButton* btn = new QPushButton(this);
+			btn->setText(tr("Extra &Config"));
+			connect(btn, SIGNAL(clicked()), this, SLOT(showWinConf()));
+			lot2->addWidget(btn);
+		}
+		{
+			QPushButton* btn = new QPushButton(this);
 			btn->setText(tr("&Quit"));
 			connect(btn, SIGNAL(clicked()), this, SLOT(close()));
 			lot2->addWidget(btn);
@@ -165,11 +142,6 @@ bool QWinMainApp::numBetweenNums(double num, double base1, double base2, bool bI
 			return true;
 	}
 	return false;
-}
-
-void QWinMainApp::closeEvent(QCloseEvent* e)
-{
-	QWidget::closeEvent(e);
 }
 
 void QWinMainApp::changeEvent(QEvent* e)
@@ -274,6 +246,19 @@ void QWinMainApp::trayActivated(QSystemTrayIcon::ActivationReason reason)
 	}
 }
 
+void QWinMainApp::showWinConf()
+{
+	DECCV(QWinConfMainApp*, winConf);
+	if (winConf) {
+		winConf->activateWindow();
+		return;
+	}
+
+	winConf = new QWinConfMainApp(m_conf, this);
+	winConf->addClearPtr((void**)&winConf);
+	winConf->show();
+}
+
 void QWinMainApp::setConfChanged()
 {
 	m_btnApply->setEnabled(true);
@@ -285,10 +270,6 @@ void QWinMainApp::applyConf()
 
 	m_btnApply->setEnabled(false);
 
-	conf.m_initHideWindow = (m_chkInitHideWindow->checkState() == Qt::Checked) ? true : false;
-
-	conf.m_enableTimeLimit = (m_chkEnableTimeLimit->checkState() == Qt::Checked) ? true : false;
-	conf.m_refreshTimer = m_spinRefreshTimer->value();
 	conf.m_USEnable = (m_chkUSDollar->checkState() == Qt::Checked) ? true : false;
 	conf.m_USDollar = m_spinUSDollar->value();
 	conf.m_USEnable2 = (m_chkUSDollar2->checkState() == Qt::Checked) ? true : false;

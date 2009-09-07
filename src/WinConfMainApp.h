@@ -3,16 +3,17 @@
 
 #include "stable.h"
 
-#include "WinBase.h"
+#include "WinExt.h"
 
 class QConfMainApp;
 
-class QWinConfMainApp : public QWinBase
+class QWinConfMainApp : public QWinExt
 {
 	Q_OBJECT
 public:
 	QWinConfMainApp(QConfMainApp* pConf, QWidget* parent = NULL);
 
+public slots:
 	void setConfChanged();
 	void applyConf();
 
