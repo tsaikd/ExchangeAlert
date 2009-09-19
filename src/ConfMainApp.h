@@ -17,8 +17,10 @@ public:
 	QSettings* m_conf;			// app conf
 	QWidget* m_mainWidget;		// app conf
 	bool	m_closing;			// app conf
+
 	bool	m_initHideWindow;
 	bool	m_hideStatusBar;
+	int		m_dollarFontSize;
 
 	bool	m_enableTimeLimit;
 	int		m_refreshTimer;

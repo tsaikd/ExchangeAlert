@@ -27,6 +27,23 @@ QWinConfMainApp::QWinConfMainApp(QConfMainApp* pConf, QWidget* parent/* = NULL*/
 		lot->addWidget(chk);
 	}
 	{
+		QHBoxLayout* lot2 = new QHBoxLayout();
+		{
+			QLabel* lbl = new QLabel(this);
+			lbl->setText(tr("Dollar font size:"));
+			lot2->addWidget(lbl);
+		}
+		{
+			DEWRV(QSpinBox*, spin, m_spinFollarFontSize, new QSpinBox(this));
+			spin->setRange(1, 150);
+			spin->setSingleStep(1);
+			spin->setValue(conf.m_dollarFontSize);
+			connect(spin, SIGNAL(valueChanged(int)), this, SLOT(setConfChanged()));
+			lot2->addWidget(spin);
+		}
+		lot->addLayout(lot2);
+	}
+	{
 		DEWRV(QCheckBox*, chk, m_chkEnableTimeLimit, new QCheckBox(this));
 		chk->setText(tr("Only update from internet in trading time"));
 		chk->setChecked(conf.m_enableTimeLimit);
@@ -83,6 +100,7 @@ void QWinConfMainApp::applyConf()
 
 	conf.m_initHideWindow = (m_chkInitHideWindow->checkState() == Qt::Checked) ? true : false;
 	conf.m_hideStatusBar = (m_chkHideStatusBar->checkState() == Qt::Checked) ? true : false;
+	conf.m_dollarFontSize = m_spinFollarFontSize->value();
 
 	conf.m_enableTimeLimit = (m_chkEnableTimeLimit->checkState() == Qt::Checked) ? true : false;
 	conf.m_refreshTimer = m_spinRefreshTimer->value();

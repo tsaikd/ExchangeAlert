@@ -49,7 +49,6 @@ void QWinMainApp::_init()
 		{
 			DEWRV(QLabel*, lbl, m_lblCurUSDollar, new QLabel(this));
 			lbl->setText(QString::number(conf.m_USDollarLast));
-			lbl->setMinimumWidth(40);
 			lot2->addWidget(lbl);
 		}
 		{
@@ -282,12 +281,19 @@ void QWinMainApp::applyConf()
 void QWinMainApp::updateExtConf()
 {
 	CDCCP(QConfMainApp, conf);
-	DECCP(QStatusBar, bar);
 
-	if (conf.m_hideStatusBar) {
-		bar.hide();
-	} else {
-		bar.show();
+	{
+		DECCP(QStatusBar, bar);
+		if (conf.m_hideStatusBar) {
+			bar.hide();
+		} else {
+			bar.show();
+		}
+	}
+	{
+		DECRV(QLabel*, lbl, m_lblCurUSDollar);
+		QFont f("", conf.m_dollarFontSize);
+		lbl->setFont(f);
 	}
 }
 

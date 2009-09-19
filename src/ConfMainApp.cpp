@@ -23,8 +23,10 @@ void QConfMainApp::_init()
 	DEWRP(QSettings, conf, m_conf, new QSettings(QString("%1.ini").arg(qAppName()), QSettings::IniFormat, this));
 	m_mainWidget = NULL;
 	m_closing = false;
+
 	LOAD_CONFIG(initHideWindow, "0");
 	LOAD_CONFIG(hideStatusBar, "0");
+	LOAD_CONFIG(dollarFontSize, "15");
 
 	LOAD_CONFIG(enableTimeLimit, "1");
 	LOAD_CONFIG(refreshTimer, "60");
@@ -41,6 +43,7 @@ QConfMainApp& QConfMainApp::save()
 
 	SAVE_CONFIG(initHideWindow);
 	SAVE_CONFIG(hideStatusBar);
+	SAVE_CONFIG(dollarFontSize);
 
 	SAVE_CONFIG(enableTimeLimit);
 	SAVE_CONFIG(refreshTimer);

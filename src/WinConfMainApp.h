@@ -25,6 +25,7 @@ protected:
 
 	QCheckBox* m_chkInitHideWindow;
 	QCheckBox* m_chkHideStatusBar;
+	QSpinBox* m_spinFollarFontSize;
 	QCheckBox* m_chkEnableTimeLimit;
 	QSpinBox* m_spinRefreshTimer;
 
