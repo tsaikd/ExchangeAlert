@@ -24,6 +24,7 @@ protected:
 	QConfMainApp* m_conf;
 
 	QCheckBox* m_chkInitHideWindow;
+	QCheckBox* m_chkHideStatusBar;
 	QCheckBox* m_chkEnableTimeLimit;
 	QSpinBox* m_spinRefreshTimer;
 

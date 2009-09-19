@@ -18,6 +18,7 @@ public:
 	QWidget* m_mainWidget;		// app conf
 	bool	m_closing;			// app conf
 	bool	m_initHideWindow;
+	bool	m_hideStatusBar;
 
 	bool	m_enableTimeLimit;
 	int		m_refreshTimer;

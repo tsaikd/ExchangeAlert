@@ -49,12 +49,9 @@ void QWinMainApp::_init()
 		{
 			DEWRV(QLabel*, lbl, m_lblCurUSDollar, new QLabel(this));
 			lbl->setText(QString::number(conf.m_USDollarLast));
+			lbl->setMinimumWidth(40);
 			lot2->addWidget(lbl);
 		}
-		lot->addLayout(lot2);
-	}
-	{
-		QHBoxLayout* lot2 = new QHBoxLayout();
 		{
 			DEWRV(QCheckBox*, chk, m_chkUSDollar, new QCheckBox(this));
 			chk->setChecked(conf.m_USEnable);
@@ -117,6 +114,7 @@ void QWinMainApp::_init()
 	}
 	setLayout(lot);
 
+	updateExtConf();
 	resetTimer();
 	if (conf.m_initHideWindow) {
 		tray.show();
@@ -256,6 +254,8 @@ void QWinMainApp::showWinConf()
 
 	winConf = new QWinConfMainApp(m_conf, this);
 	winConf->addClearPtr((void**)&winConf);
+	connect(winConf, SIGNAL(sigApplyConf()), this, SLOT(updateExtConf()));
+
 	winConf->show();
 }
 
@@ -277,6 +277,18 @@ void QWinMainApp::applyConf()
 
 	conf.save();
 	resetTimer();
+}
+
+void QWinMainApp::updateExtConf()
+{
+	CDCCP(QConfMainApp, conf);
+	DECCP(QStatusBar, bar);
+
+	if (conf.m_hideStatusBar) {
+		bar.hide();
+	} else {
+		bar.show();
+	}
 }
 
 void QWinMainApp::refreshWebPage()

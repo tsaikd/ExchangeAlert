@@ -24,6 +24,7 @@ void QConfMainApp::_init()
 	m_mainWidget = NULL;
 	m_closing = false;
 	LOAD_CONFIG(initHideWindow, "0");
+	LOAD_CONFIG(hideStatusBar, "0");
 
 	LOAD_CONFIG(enableTimeLimit, "1");
 	LOAD_CONFIG(refreshTimer, "60");
@@ -39,6 +40,7 @@ QConfMainApp& QConfMainApp::save()
 	DECCP(QSettings, conf);
 
 	SAVE_CONFIG(initHideWindow);
+	SAVE_CONFIG(hideStatusBar);
 
 	SAVE_CONFIG(enableTimeLimit);
 	SAVE_CONFIG(refreshTimer);

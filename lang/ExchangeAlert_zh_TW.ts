@@ -10,21 +10,26 @@
     </message>
     <message>
         <location filename="../src/WinConfMainApp.cpp" line="24"/>
+        <source>Hide status bar</source>
+        <translation>隱藏狀態列</translation>
+    </message>
+    <message>
+        <location filename="../src/WinConfMainApp.cpp" line="31"/>
         <source>Only update from internet in trading time</source>
         <translation>只在交易時間內從網路更新資料</translation>
     </message>
     <message>
-        <location filename="../src/WinConfMainApp.cpp" line="33"/>
+        <location filename="../src/WinConfMainApp.cpp" line="40"/>
         <source>Refresh time(sec):</source>
         <translation>更新間隔(秒):</translation>
     </message>
     <message>
-        <location filename="../src/WinConfMainApp.cpp" line="50"/>
+        <location filename="../src/WinConfMainApp.cpp" line="57"/>
         <source>&amp;Apply</source>
         <translation>套用(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/WinConfMainApp.cpp" line="57"/>
+        <location filename="../src/WinConfMainApp.cpp" line="64"/>
         <source>&amp;Close</source>
         <translation>關閉(&amp;C)</translation>
     </message>
@@ -33,7 +38,7 @@
     <name>QWinMainApp</name>
     <message>
         <location filename="../src/WinMainApp.cpp" line="34"/>
-        <location filename="../src/WinMainApp.cpp" line="112"/>
+        <location filename="../src/WinMainApp.cpp" line="110"/>
         <source>&amp;Quit</source>
         <translation>離開(&amp;Q)</translation>
     </message>
@@ -63,27 +68,27 @@
         <translation>美金:</translation>
     </message>
     <message>
-        <location filename="../src/WinMainApp.cpp" line="99"/>
+        <location filename="../src/WinMainApp.cpp" line="97"/>
         <source>&amp;Apply</source>
         <translation>套用(&amp;A)</translation>
     </message>
     <message>
-        <location filename="../src/WinMainApp.cpp" line="106"/>
+        <location filename="../src/WinMainApp.cpp" line="104"/>
         <source>Extra &amp;Config</source>
         <translation>額外設定(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../src/WinMainApp.cpp" line="193"/>
+        <location filename="../src/WinMainApp.cpp" line="192"/>
         <source>US Dollar reached %1</source>
         <translation>美金已達目標 %1</translation>
     </message>
     <message>
-        <location filename="../src/WinMainApp.cpp" line="300"/>
+        <location filename="../src/WinMainApp.cpp" line="313"/>
         <source>Updating US dollar ...</source>
         <translation>美金更新中...</translation>
     </message>
     <message>
-        <location filename="../src/WinMainApp.cpp" line="352"/>
+        <location filename="../src/WinMainApp.cpp" line="365"/>
         <source>Updated US dollar</source>
         <translation>美金更新完畢</translation>
     </message>

@@ -38,6 +38,7 @@ protected slots:
 	void showWinConf();
 	void setConfChanged();
 	void applyConf();
+	void updateExtConf();
 	void refreshWebPage();
 
 protected:

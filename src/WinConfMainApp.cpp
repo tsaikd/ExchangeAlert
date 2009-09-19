@@ -20,6 +20,13 @@ QWinConfMainApp::QWinConfMainApp(QConfMainApp* pConf, QWidget* parent/* = NULL*/
 		lot->addWidget(chk);
 	}
 	{
+		DEWRV(QCheckBox*, chk, m_chkHideStatusBar, new QCheckBox(this));
+		chk->setText(tr("Hide status bar"));
+		chk->setChecked(conf.m_hideStatusBar);
+		connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
+		lot->addWidget(chk);
+	}
+	{
 		DEWRV(QCheckBox*, chk, m_chkEnableTimeLimit, new QCheckBox(this));
 		chk->setText(tr("Only update from internet in trading time"));
 		chk->setChecked(conf.m_enableTimeLimit);
@@ -75,6 +82,7 @@ void QWinConfMainApp::applyConf()
 	m_btnApply->setEnabled(false);
 
 	conf.m_initHideWindow = (m_chkInitHideWindow->checkState() == Qt::Checked) ? true : false;
+	conf.m_hideStatusBar = (m_chkHideStatusBar->checkState() == Qt::Checked) ? true : false;
 
 	conf.m_enableTimeLimit = (m_chkEnableTimeLimit->checkState() == Qt::Checked) ? true : false;
 	conf.m_refreshTimer = m_spinRefreshTimer->value();
