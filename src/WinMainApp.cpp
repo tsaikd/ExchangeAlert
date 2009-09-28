@@ -38,80 +38,181 @@ void QWinMainApp::_init()
 	DEWRV(QTimer*, timer, m_timer, new QTimer(this));
 	connect(timer, SIGNAL(timeout()), this, SLOT(refreshWebPage()));
 
-	QVBoxLayout* lot = new QVBoxLayout();
+	// Init UI widget
+	QLabel* lblUSDollar = new QLabel(tr("US dollar:"), this);;
+	DEWCV(QLabel*, lblCurUSDollar, new QLabel(QString::number(conf.m_USDollarLast), this));
+	DEWCV(QCheckBox*, chkUSDollar, new QCheckBox(this));
 	{
-		QHBoxLayout* lot2 = new QHBoxLayout();
-		{
-			QLabel* lbl = new QLabel(this);
-			lbl->setText(tr("US dollar:"));
-			lot2->addWidget(lbl);
-		}
-		{
-			DEWRV(QLabel*, lbl, m_lblCurUSDollar, new QLabel(this));
-			lbl->setText(QString::number(conf.m_USDollarLast));
-			lot2->addWidget(lbl);
-		}
-		{
-			DEWRV(QCheckBox*, chk, m_chkUSDollar, new QCheckBox(this));
-			chk->setChecked(conf.m_USEnable);
-			chk->setMaximumWidth(15);
-			connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
-			lot2->addWidget(chk);
-
-			DEWRV(QDoubleSpinBox*, spin, m_spinUSDollar, new QDoubleSpinBox(this));
-			spin->setDecimals(3);
-			spin->setRange(0, 9999);
-			spin->setSingleStep(0.005);
-			spin->setValue(conf.m_USDollar);
-			connect(spin, SIGNAL(valueChanged(double)), this, SLOT(setConfChanged()));
-			lot2->addWidget(spin);
-		}
-		{
-			DEWRV(QCheckBox*, chk, m_chkUSDollar2, new QCheckBox(this));
-			chk->setChecked(conf.m_USEnable2);
-			chk->setMaximumWidth(15);
-			connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
-			lot2->addWidget(chk);
-
-			DEWRV(QDoubleSpinBox*, spin, m_spinUSDollar2, new QDoubleSpinBox(this));
-			spin->setDecimals(3);
-			spin->setRange(0, 9999);
-			spin->setSingleStep(0.005);
-			spin->setValue(conf.m_USDollar2);
-			connect(spin, SIGNAL(valueChanged(double)), this, SLOT(setConfChanged()));
-			lot2->addWidget(spin);
-		}
-		lot->addLayout(lot2);
+		QCheckBox*& chk = chkUSDollar;
+		chk->setChecked(conf.m_USEnable);
+		chk->setMaximumWidth(15);
+		connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
 	}
+	DEWCV(QDoubleSpinBox*, spinUSDollar, new QDoubleSpinBox(this));
 	{
-		DEWRV(QStatusBar*, bar, m_bar, new QStatusBar(this));
+		QDoubleSpinBox*& spin = spinUSDollar;
+		spin->setDecimals(3);
+		spin->setRange(0, 9999);
+		spin->setSingleStep(0.005);
+		spin->setValue(conf.m_USDollar);
+		connect(spin, SIGNAL(valueChanged(double)), this, SLOT(setConfChanged()));
+	}
+	DEWCV(QCheckBox*, chkUSDollar2, new QCheckBox(this));
+	{
+		QCheckBox*& chk = chkUSDollar2;
+		chk->setChecked(conf.m_USEnable2);
+		chk->setMaximumWidth(15);
+		connect(chk, SIGNAL(stateChanged(int)), this, SLOT(setConfChanged()));
+	}
+	DEWCV(QDoubleSpinBox*, spinUSDollar2, new QDoubleSpinBox(this));
+	{
+		QDoubleSpinBox*& spin = spinUSDollar2;
+		spin->setDecimals(3);
+		spin->setRange(0, 9999);
+		spin->setSingleStep(0.005);
+		spin->setValue(conf.m_USDollar2);
+		connect(spin, SIGNAL(valueChanged(double)), this, SLOT(setConfChanged()));
+	}
+	DEWCV(QStatusBar*, bar, new QStatusBar(this));
+	{
 		bar->setSizeGripEnabled(false);
-		lot->addWidget(bar);
 	}
+	DEWCV(QPushButton*, btnApply, new QPushButton(this));
 	{
-		QHBoxLayout* lot2 = new QHBoxLayout();
-		{
-			DEWRV(QPushButton*, btn, m_btnApply, new QPushButton(this));
-			btn->setText(tr("&Apply"));
-			btn->setEnabled(false);
-			connect(btn, SIGNAL(clicked()), this, SLOT(applyConf()));
-			lot2->addWidget(btn);
-		}
-		{
-			QPushButton* btn = new QPushButton(this);
-			btn->setText(tr("Extra &Config"));
-			connect(btn, SIGNAL(clicked()), this, SLOT(showWinConf()));
-			lot2->addWidget(btn);
-		}
-		{
-			QPushButton* btn = new QPushButton(this);
-			btn->setText(tr("&Quit"));
-			connect(btn, SIGNAL(clicked()), this, SLOT(close()));
-			lot2->addWidget(btn);
-		}
-		lot->addLayout(lot2);
+		QPushButton*& btn = btnApply;
+		btn->setEnabled(false);
+		connect(btn, SIGNAL(clicked()), this, SLOT(applyConf()));
 	}
-	setLayout(lot);
+	QPushButton* btnConfig = new QPushButton(this);
+	{
+		QPushButton*& btn = btnConfig;
+		connect(btn, SIGNAL(clicked()), this, SLOT(showWinConf()));
+	}
+	QPushButton* btnQuit = new QPushButton(this);
+	{
+		QPushButton*& btn = btnQuit;
+		connect(btn, SIGNAL(clicked()), this, SLOT(close()));
+	}
+
+	switch (conf.m_layoutStyle) {
+	case 1:
+	case 2:
+		{
+			QPushButton*& btn = btnApply;
+			btn->setIcon(QIcon(":/icon/apply.png"));
+			btn->setToolTip(tr("&Apply"));
+		}
+		{
+			QPushButton*& btn = btnConfig;
+			btn->setIcon(QIcon(":/icon/config.png"));
+			btn->setToolTip(tr("Extra &Config"));
+		}
+		{
+			SAFE_DELETE(btnQuit);
+		}
+		break;
+	default:
+		{
+			QPushButton*& btn = btnApply;
+			btn->setText(tr("&Apply"));
+		}
+		{
+			QPushButton*& btn = btnConfig;
+			btn->setText(tr("Extra &Config"));
+		}
+		{
+			QPushButton*& btn = btnQuit;
+			btn->setText(tr("&Quit"));
+		}
+		break;
+	}
+
+	// Setup UI layout
+	switch (conf.m_layoutStyle) {
+	case 1:
+		{
+			QVBoxLayout* lot = new QVBoxLayout();
+			{
+				QHBoxLayout* lot2 = new QHBoxLayout();
+				lot2->addWidget(lblUSDollar);
+				lot2->addWidget(lblCurUSDollar);
+				lot2->addWidget(chkUSDollar);
+				lot2->addWidget(spinUSDollar);
+				lot2->addWidget(chkUSDollar2);
+				lot2->addWidget(spinUSDollar2);
+				lot->addLayout(lot2);
+			}
+			{
+				QHBoxLayout* lot2 = new QHBoxLayout();
+				lot2->addWidget(bar);
+				lot2->addWidget(btnApply);
+				lot2->addWidget(btnConfig);
+				lot2->addWidget(btnQuit);
+				lot->addLayout(lot2);
+			}
+			setLayout(lot);
+		}
+		break;
+	case 2:
+		{
+			QVBoxLayout* lot = new QVBoxLayout();
+			{
+				QHBoxLayout* lot2 = new QHBoxLayout();
+				lot2->addWidget(lblUSDollar);
+				lot2->addWidget(lblCurUSDollar);
+				lot->addLayout(lot2);
+			}
+			{
+				QHBoxLayout* lot2 = new QHBoxLayout();
+				lot2->addWidget(chkUSDollar);
+				lot2->addWidget(spinUSDollar);
+				lot->addLayout(lot2);
+			}
+			{
+				QHBoxLayout* lot2 = new QHBoxLayout();
+				lot2->addWidget(chkUSDollar2);
+				lot2->addWidget(spinUSDollar2);
+				lot->addLayout(lot2);
+			}
+			{
+				lot->addWidget(bar);
+			}
+			{
+				QHBoxLayout* lot2 = new QHBoxLayout();
+				lot2->addWidget(btnApply);
+				lot2->addWidget(btnConfig);
+				lot->addLayout(lot2);
+			}
+			setLayout(lot);
+		}
+		break;
+	default:
+		{
+			QVBoxLayout* lot = new QVBoxLayout();
+			{
+				QHBoxLayout* lot2 = new QHBoxLayout();
+				lot2->addWidget(lblUSDollar);
+				lot2->addWidget(lblCurUSDollar);
+				lot2->addWidget(chkUSDollar);
+				lot2->addWidget(spinUSDollar);
+				lot2->addWidget(chkUSDollar2);
+				lot2->addWidget(spinUSDollar2);
+				lot->addLayout(lot2);
+			}
+			{
+				lot->addWidget(bar);
+			}
+			{
+				QHBoxLayout* lot2 = new QHBoxLayout();
+				lot2->addWidget(btnApply);
+				lot2->addWidget(btnConfig);
+				lot2->addWidget(btnQuit);
+				lot->addLayout(lot2);
+			}
+			setLayout(lot);
+		}
+		break;
+	}
 
 	updateExtConf();
 	resetTimer();

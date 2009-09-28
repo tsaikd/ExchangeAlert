@@ -24,6 +24,7 @@ protected:
 	QConfMainApp* m_conf;
 
 	QCheckBox* m_chkInitHideWindow;
+	QComboBox* m_cboLayoutStyle;
 	QCheckBox* m_chkHideStatusBar;
 	QSpinBox* m_spinFollarFontSize;
 	QCheckBox* m_chkEnableTimeLimit;

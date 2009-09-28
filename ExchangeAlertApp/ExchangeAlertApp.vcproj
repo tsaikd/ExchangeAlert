@@ -143,6 +143,10 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath="..\ExchangeAlert.qrc"
+			>
+		</File>
+		<File
 			RelativePath=".\ExchangeAlertApp.pro"
 			>
 		</File>

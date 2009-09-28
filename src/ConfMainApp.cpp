@@ -25,6 +25,7 @@ void QConfMainApp::_init()
 	m_closing = false;
 
 	LOAD_CONFIG(initHideWindow, "0");
+	LOAD_CONFIG(layoutStyle, "0");
 	LOAD_CONFIG(hideStatusBar, "0");
 	LOAD_CONFIG(dollarFontSize, "15");
 
@@ -42,6 +43,7 @@ QConfMainApp& QConfMainApp::save()
 	DECCP(QSettings, conf);
 
 	SAVE_CONFIG(initHideWindow);
+	SAVE_CONFIG(layoutStyle);
 	SAVE_CONFIG(hideStatusBar);
 	SAVE_CONFIG(dollarFontSize);
 

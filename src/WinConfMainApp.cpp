@@ -20,6 +20,23 @@ QWinConfMainApp::QWinConfMainApp(QConfMainApp* pConf, QWidget* parent/* = NULL*/
 		lot->addWidget(chk);
 	}
 	{
+		QHBoxLayout* lot2 = new QHBoxLayout();
+		{
+			QLabel* lbl = new QLabel("(*)", this);
+			lbl->setMaximumWidth(15);
+			lot2->addWidget(lbl);
+
+			DEWRV(QComboBox*, cbo, m_cboLayoutStyle, new QComboBox(this));
+			cbo->addItem(tr("Default style"), 0);
+			cbo->addItem(tr("Horizontal style"), 1);
+			cbo->addItem(tr("Vertical style"), 2);
+			cbo->setCurrentIndex(conf.m_layoutStyle);
+			connect(cbo, SIGNAL(currentIndexChanged(int)), this, SLOT(setConfChanged()));
+			lot2->addWidget(cbo);
+		}
+		lot->addLayout(lot2);
+	}
+	{
 		DEWRV(QCheckBox*, chk, m_chkHideStatusBar, new QCheckBox(this));
 		chk->setText(tr("Hide status bar"));
 		chk->setChecked(conf.m_hideStatusBar);
@@ -68,6 +85,10 @@ QWinConfMainApp::QWinConfMainApp(QConfMainApp* pConf, QWidget* parent/* = NULL*/
 		lot->addLayout(lot2);
 	}
 	{
+		lot->addWidget(new QLabel(this));
+		lot->addWidget(new QLabel(tr("(*): Need to restart this program"), this));
+	}
+	{
 		QHBoxLayout* lot2 = new QHBoxLayout();
 		{
 			DEWRV(QPushButton*, btn, m_btnApply, new QPushButton(this));
@@ -99,6 +120,7 @@ void QWinConfMainApp::applyConf()
 	m_btnApply->setEnabled(false);
 
 	conf.m_initHideWindow = (m_chkInitHideWindow->checkState() == Qt::Checked) ? true : false;
+	conf.m_layoutStyle = m_cboLayoutStyle->itemData(m_cboLayoutStyle->currentIndex()).toInt();
 	conf.m_hideStatusBar = (m_chkHideStatusBar->checkState() == Qt::Checked) ? true : false;
 	conf.m_dollarFontSize = m_spinFollarFontSize->value();
 

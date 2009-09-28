@@ -19,6 +19,7 @@ public:
 	bool	m_closing;			// app conf
 
 	bool	m_initHideWindow;
+	int		m_layoutStyle;
 	bool	m_hideStatusBar;
 	int		m_dollarFontSize;
 
